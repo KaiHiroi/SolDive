@@ -1,7 +1,7 @@
 # SolDive
 Deep Dive into EVM with Solidity
 
-- [Multi Delegatecall](./test/MultiDelegatecall.t.sol)
+- [Multi Delegatecall](./src/multi-delegatecall/README.md)
 <!-- - metatx
 - proxy pattern
     - UUPS
