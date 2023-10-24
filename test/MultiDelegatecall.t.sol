@@ -8,6 +8,8 @@ import {CalleeProxy1} from "../src/multi-delegatecall/CalleeProxy1.sol";
 import {CalleeProxy2} from "../src/multi-delegatecall/CalleeProxy2.sol";
 import {Number} from "../src/multi-delegatecall/Number.sol";
 
+import {FailProxy} from "../src/multi-delegatecall/FailProxy.sol";
+
 contract MultiDelegatecall is Test {
     function test_MultiDelegatecall() public {
         address number = address(new Number());
@@ -21,4 +23,16 @@ contract MultiDelegatecall is Test {
         Number(callerProxy).setNumber(200);
         Number(callerProxy).getNumber();
     }
+
+    function test_Fail_MultiDelegatecall() public {
+        address number = address(new Number());
+        address calleeProxy1 = address(new FailProxy(number));
+        address callerProxy = address(new FailProxy(calleeProxy1));
+
+        vm.expectRevert();
+        Number(callerProxy).setNumber(200);
+        vm.expectRevert();
+        Number(callerProxy).getNumber();
+    }
+
 }
